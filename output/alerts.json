@@ -1,0 +1,170 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-05-26T12:05:00.754763",
+    "tool": "siem-log-analyzer",
+    "total_alerts": 17,
+    "severity_counts": {
+      "CRITICAL": 3,
+      "HIGH": 9,
+      "MEDIUM": 5,
+      "LOW": 0
+    }
+  },
+  "alerts": [
+    {
+      "type": "OFF_HOURS_LOGIN",
+      "severity": "CRITICAL",
+      "ip": "185.72.33.10",
+      "user": "root",
+      "timestamp": "2026-05-26T02:13:13",
+      "detail": "Successful login by 'root' from 185.72.33.10 at 02:13:13 \u2014 late night (22:00\u201306:00). Investigate whether this is an authorized session."
+    },
+    {
+      "type": "OFF_HOURS_LOGIN",
+      "severity": "CRITICAL",
+      "ip": "77.88.55.66",
+      "user": "root",
+      "timestamp": "2026-05-26T23:58:11",
+      "detail": "Successful login by 'root' from 77.88.55.66 at 23:58:11 \u2014 late night (22:00\u201306:00). Investigate whether this is an authorized session."
+    },
+    {
+      "type": "ACCOUNT_COMPROMISE",
+      "severity": "CRITICAL",
+      "ip": "77.88.55.66",
+      "user": "root",
+      "timestamp": "2026-05-26T23:59:00",
+      "detail": "Correlation detected: 5 failed login(s) from 77.88.55.66 followed by successful login and privilege escalation for 'root'.",
+      "timeline": [
+        {
+          "event": "FAILED_LOGIN_BURST",
+          "count": 5,
+          "first_seen": "2026-05-26T23:58:01",
+          "last_seen": "2026-05-26T23:58:09"
+        },
+        {
+          "event": "LOGIN_SUCCESS",
+          "timestamp": "2026-05-26T23:58:11",
+          "ip": "77.88.55.66",
+          "user": "root"
+        },
+        {
+          "event": "PRIVILEGE_ESCALATION",
+          "timestamp": "2026-05-26T23:59:00",
+          "command": "/bin/bash"
+        }
+      ]
+    },
+    {
+      "type": "BRUTEFORCE_SUCCESS",
+      "severity": "HIGH",
+      "ip": "185.72.33.10",
+      "user": "root",
+      "timestamp": "2026-05-26T02:13:13",
+      "detail": "IP 185.72.33.10 had 6 failed login attempt(s) before successfully authenticating as 'root' at 02:13:13. This matches a credential brute-force success pattern. Escalate immediately."
+    },
+    {
+      "type": "OFF_HOURS_LOGIN",
+      "severity": "HIGH",
+      "ip": "203.0.113.45",
+      "user": "developer",
+      "timestamp": "2026-05-26T08:15:10",
+      "detail": "Successful login by 'developer' from 203.0.113.45 at 08:15:10 \u2014 outside business hours (9:00\u201318:00). Investigate whether this is an authorized session."
+    },
+    {
+      "type": "PRIVILEGE_ESCALATION",
+      "severity": "HIGH",
+      "ip": "localhost",
+      "user": "developer",
+      "timestamp": "2026-05-26T08:15:12",
+      "detail": "User 'developer' executed elevated command: [/bin/bash] at 08:15:12. \u26a0 Sensitive command \u2014 verify authorization."
+    },
+    {
+      "type": "PRIVILEGE_ESCALATION",
+      "severity": "HIGH",
+      "ip": "localhost",
+      "user": "john",
+      "timestamp": "2026-05-26T11:00:05",
+      "detail": "User 'john' executed elevated command: [/usr/bin/passwd root] at 11:00:05. \u26a0 Sensitive command \u2014 verify authorization."
+    },
+    {
+      "type": "PRIVILEGE_ESCALATION",
+      "severity": "HIGH",
+      "ip": "localhost",
+      "user": "john",
+      "timestamp": "2026-05-26T11:00:10",
+      "detail": "User 'john' executed elevated command: [/bin/su] at 11:00:10. \u26a0 Sensitive command \u2014 verify authorization."
+    },
+    {
+      "type": "BRUTEFORCE_SUCCESS",
+      "severity": "HIGH",
+      "ip": "103.25.59.88",
+      "user": "ubuntu",
+      "timestamp": "2026-05-26T14:22:21",
+      "detail": "IP 103.25.59.88 had 5 failed login attempt(s) before successfully authenticating as 'ubuntu' at 14:22:21. This matches a credential brute-force success pattern. Escalate immediately."
+    },
+    {
+      "type": "UNKNOWN_USER_LOGIN",
+      "severity": "HIGH",
+      "ip": "10.0.0.55",
+      "user": "newuser",
+      "timestamp": "2026-05-26T16:05:00",
+      "detail": "Successful login by unrecognized user 'newuser' from 10.0.0.55 at 16:05:00. Verify if this account is legitimate. Could indicate backdoor account creation."
+    },
+    {
+      "type": "BRUTEFORCE_SUCCESS",
+      "severity": "HIGH",
+      "ip": "77.88.55.66",
+      "user": "root",
+      "timestamp": "2026-05-26T23:58:11",
+      "detail": "IP 77.88.55.66 had 5 failed login attempt(s) before successfully authenticating as 'root' at 23:58:11. This matches a credential brute-force success pattern. Escalate immediately."
+    },
+    {
+      "type": "PRIVILEGE_ESCALATION",
+      "severity": "HIGH",
+      "ip": "localhost",
+      "user": "root",
+      "timestamp": "2026-05-26T23:59:00",
+      "detail": "User 'root' executed elevated command: [/bin/bash] at 23:59:00. \u26a0 Sensitive command \u2014 verify authorization."
+    },
+    {
+      "type": "FAILED_LOGIN_BURST",
+      "severity": "MEDIUM",
+      "ip": "185.72.33.10",
+      "user": "<multiple>",
+      "timestamp": "2026-05-26T02:13:11",
+      "detail": "6 failed logins from 185.72.33.10 within 10 minutes."
+    },
+    {
+      "type": "FAILED_LOGIN_BURST",
+      "severity": "MEDIUM",
+      "ip": "92.118.160.22",
+      "user": "<multiple>",
+      "timestamp": "2026-05-26T03:44:35",
+      "detail": "8 failed logins from 92.118.160.22 within 10 minutes."
+    },
+    {
+      "type": "FAILED_LOGIN_BURST",
+      "severity": "MEDIUM",
+      "ip": "45.33.32.156",
+      "user": "<multiple>",
+      "timestamp": "2026-05-26T09:30:08",
+      "detail": "5 failed logins from 45.33.32.156 within 10 minutes."
+    },
+    {
+      "type": "FAILED_LOGIN_BURST",
+      "severity": "MEDIUM",
+      "ip": "103.25.59.88",
+      "user": "<multiple>",
+      "timestamp": "2026-05-26T14:22:19",
+      "detail": "5 failed logins from 103.25.59.88 within 10 minutes."
+    },
+    {
+      "type": "FAILED_LOGIN_BURST",
+      "severity": "MEDIUM",
+      "ip": "77.88.55.66",
+      "user": "<multiple>",
+      "timestamp": "2026-05-26T23:58:09",
+      "detail": "5 failed logins from 77.88.55.66 within 10 minutes."
+    }
+  ]
+}

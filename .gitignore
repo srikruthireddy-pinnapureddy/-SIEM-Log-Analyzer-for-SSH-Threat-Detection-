@@ -1,0 +1,64 @@
+# Additional ignores
+# OS-specific
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Jupyter and notebook checkpoints
+.ipynb_checkpoints/
+
+# Test fixtures and outputs
+tests/fixtures/
+tests/__pycache__/
+examples/*.log
+examples/*.csv
+
+# Asset outputs (if generated)
+assets/*.png
+
+# Ignore config.json if user-specific
+config.json
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Generated outputs
+*.csv
+*.log
+*.pid
+
+# Local testing & documentation (don't ship)
+MANUAL_TESTING_*.md
+*_WHITELIST_FIX.md
+QUICK_START_DEPLOYMENT.md
+TESTING_GUIDE.md
+vps_test.sh
+test_verify.csv
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Config overrides (optional - remove if you want to track config.json)
+# config.json

@@ -1,0 +1,285 @@
+==============================================================================
+                 ENTERPRISE SOC INCIDENT REPORT
+==============================================================================
+  Incident ID     : INC-20260526-120500
+  Generated At    : 2026-05-26 12:05:00
+  Log Source      : C:\Users\HP\Downloads\SSHVigil-Cybersecurity-Suite-main\sample_logs\auth.log
+  Overall Severity: CRITICAL
+  Analyst         : [L1 SOC Analyst — Srikruthi Reddy]
+  Status          : Open — Pending L2 Review
+==============================================================================
+
+-- EXECUTIVE SUMMARY --------------------------------------------------------
+  Total Alerts   : 17
+  CRITICAL       : 3
+  HIGH           : 9
+  MEDIUM         : 5
+  LOW            : 0
+  Unique IPs     : 7
+
+  Alert Types Detected:
+    - FAILED_LOGIN_BURST             5 alert(s)
+    - PRIVILEGE_ESCALATION           4 alert(s)
+    - OFF_HOURS_LOGIN                3 alert(s)
+    - BRUTEFORCE_SUCCESS             3 alert(s)
+    - UNKNOWN_USER_LOGIN             1 alert(s)
+    - ACCOUNT_COMPROMISE             1 alert(s)
+
+-- FLAGGED IP ADDRESSES ---------------------------------------------------
+  10.0.0.55            HIGH:1
+  103.25.59.88         MEDIUM:1  HIGH:1
+  185.72.33.10         MEDIUM:1  CRITICAL:1  HIGH:1
+  203.0.113.45         HIGH:1
+  45.33.32.156         MEDIUM:1
+  77.88.55.66          CRITICAL:2  MEDIUM:1  HIGH:1
+  92.118.160.22        MEDIUM:1
+
+-- ALERT DETAILS ------------------------------------------------------------
+
+  [CRIT] CRITICAL (3 alert(s))
+  ------------------------------------------------------------------------
+  [1] Incident ID    : INC-20260526-120500-001
+      Severity       : CRITICAL
+      Detection Type : OFF_HOURS_LOGIN
+      MITRE ATT&CK   : T1078 - Valid Accounts
+      Source IP      : 185.72.33.10
+      Username       : root
+      Timestamp      : 2026-05-26T02:13:13
+      Threat Intel  : N/A
+      Analyst Notes  : Successful login by 'root' from 185.72.33.10 at 02:13:13 — late night (22:00–06:00). Investigate whether this is an authorized session.
+      Recommended Actions:
+        - Validate off-hours access with account owners.
+        - Confirm change windows or approved maintenance.
+        - Enable MFA if not already in place.
+
+  [2] Incident ID    : INC-20260526-120500-002
+      Severity       : CRITICAL
+      Detection Type : OFF_HOURS_LOGIN
+      MITRE ATT&CK   : T1078 - Valid Accounts
+      Source IP      : 77.88.55.66
+      Username       : root
+      Timestamp      : 2026-05-26T23:58:11
+      Threat Intel  : N/A
+      Analyst Notes  : Successful login by 'root' from 77.88.55.66 at 23:58:11 — late night (22:00–06:00). Investigate whether this is an authorized session.
+      Recommended Actions:
+        - Validate off-hours access with account owners.
+        - Confirm change windows or approved maintenance.
+        - Enable MFA if not already in place.
+
+  [3] Incident ID    : INC-20260526-120500-003
+      Severity       : CRITICAL
+      Detection Type : ACCOUNT_COMPROMISE
+      MITRE ATT&CK   : T1078 - Valid Accounts
+      Source IP      : 77.88.55.66
+      Username       : root
+      Timestamp      : 2026-05-26T23:59:00
+      Threat Intel  : N/A
+      Analyst Notes  : Correlation detected: 5 failed login(s) from 77.88.55.66 followed by successful login and privilege escalation for 'root'.
+      Recommended Actions:
+        - Review alert context and validate user activity.
+
+
+  [HIGH] HIGH (9 alert(s))
+  ------------------------------------------------------------------------
+  [1] Incident ID    : INC-20260526-120500-001
+      Severity       : HIGH
+      Detection Type : BRUTEFORCE_SUCCESS
+      MITRE ATT&CK   : T1110 - Brute Force
+      Source IP      : 185.72.33.10
+      Username       : root
+      Timestamp      : 2026-05-26T02:13:13
+      Threat Intel  : N/A
+      Analyst Notes  : IP 185.72.33.10 had 6 failed login attempt(s) before successfully authenticating as 'root' at 02:13:13. This matches a credential brute-force success pattern. Escalate immediately.
+      Recommended Actions:
+        - Rotate credentials for affected accounts.
+        - Block offending IPs at firewall/fail2ban.
+        - Review authentication logs for lateral movement.
+
+  [2] Incident ID    : INC-20260526-120500-002
+      Severity       : HIGH
+      Detection Type : OFF_HOURS_LOGIN
+      MITRE ATT&CK   : T1078 - Valid Accounts
+      Source IP      : 203.0.113.45
+      Username       : developer
+      Timestamp      : 2026-05-26T08:15:10
+      Threat Intel  : N/A
+      Analyst Notes  : Successful login by 'developer' from 203.0.113.45 at 08:15:10 — outside business hours (9:00–18:00). Investigate whether this is an authorized session.
+      Recommended Actions:
+        - Validate off-hours access with account owners.
+        - Confirm change windows or approved maintenance.
+        - Enable MFA if not already in place.
+
+  [3] Incident ID    : INC-20260526-120500-003
+      Severity       : HIGH
+      Detection Type : PRIVILEGE_ESCALATION
+      MITRE ATT&CK   : T1548 - Abuse Elevation Control Mechanism
+      Source IP      : localhost
+      Username       : developer
+      Timestamp      : 2026-05-26T08:15:12
+      Threat Intel  : N/A
+      Analyst Notes  : User 'developer' executed elevated command: [/bin/bash] at 08:15:12. ⚠ Sensitive command — verify authorization.
+      Recommended Actions:
+        - Review sudo/su logs for unauthorized privilege use.
+        - Verify sudoers configuration and least-privilege controls.
+        - Check for persistence or account misuse.
+
+  [4] Incident ID    : INC-20260526-120500-004
+      Severity       : HIGH
+      Detection Type : PRIVILEGE_ESCALATION
+      MITRE ATT&CK   : T1548 - Abuse Elevation Control Mechanism
+      Source IP      : localhost
+      Username       : john
+      Timestamp      : 2026-05-26T11:00:05
+      Threat Intel  : N/A
+      Analyst Notes  : User 'john' executed elevated command: [/usr/bin/passwd root] at 11:00:05. ⚠ Sensitive command — verify authorization.
+      Recommended Actions:
+        - Review sudo/su logs for unauthorized privilege use.
+        - Verify sudoers configuration and least-privilege controls.
+        - Check for persistence or account misuse.
+
+  [5] Incident ID    : INC-20260526-120500-005
+      Severity       : HIGH
+      Detection Type : PRIVILEGE_ESCALATION
+      MITRE ATT&CK   : T1548 - Abuse Elevation Control Mechanism
+      Source IP      : localhost
+      Username       : john
+      Timestamp      : 2026-05-26T11:00:10
+      Threat Intel  : N/A
+      Analyst Notes  : User 'john' executed elevated command: [/bin/su] at 11:00:10. ⚠ Sensitive command — verify authorization.
+      Recommended Actions:
+        - Review sudo/su logs for unauthorized privilege use.
+        - Verify sudoers configuration and least-privilege controls.
+        - Check for persistence or account misuse.
+
+  [6] Incident ID    : INC-20260526-120500-006
+      Severity       : HIGH
+      Detection Type : BRUTEFORCE_SUCCESS
+      MITRE ATT&CK   : T1110 - Brute Force
+      Source IP      : 103.25.59.88
+      Username       : ubuntu
+      Timestamp      : 2026-05-26T14:22:21
+      Threat Intel  : N/A
+      Analyst Notes  : IP 103.25.59.88 had 5 failed login attempt(s) before successfully authenticating as 'ubuntu' at 14:22:21. This matches a credential brute-force success pattern. Escalate immediately.
+      Recommended Actions:
+        - Rotate credentials for affected accounts.
+        - Block offending IPs at firewall/fail2ban.
+        - Review authentication logs for lateral movement.
+
+  [7] Incident ID    : INC-20260526-120500-007
+      Severity       : HIGH
+      Detection Type : UNKNOWN_USER_LOGIN
+      MITRE ATT&CK   : T1078 - Valid Accounts
+      Source IP      : 10.0.0.55
+      Username       : newuser
+      Timestamp      : 2026-05-26T16:05:00
+      Threat Intel  : N/A
+      Analyst Notes  : Successful login by unrecognized user 'newuser' from 10.0.0.55 at 16:05:00. Verify if this account is legitimate. Could indicate backdoor account creation.
+      Recommended Actions:
+        - Audit /etc/passwd for unauthorized accounts.
+        - Disable or lock suspicious accounts.
+        - Review recent account creation and access events.
+
+  [8] Incident ID    : INC-20260526-120500-008
+      Severity       : HIGH
+      Detection Type : BRUTEFORCE_SUCCESS
+      MITRE ATT&CK   : T1110 - Brute Force
+      Source IP      : 77.88.55.66
+      Username       : root
+      Timestamp      : 2026-05-26T23:58:11
+      Threat Intel  : N/A
+      Analyst Notes  : IP 77.88.55.66 had 5 failed login attempt(s) before successfully authenticating as 'root' at 23:58:11. This matches a credential brute-force success pattern. Escalate immediately.
+      Recommended Actions:
+        - Rotate credentials for affected accounts.
+        - Block offending IPs at firewall/fail2ban.
+        - Review authentication logs for lateral movement.
+
+  [9] Incident ID    : INC-20260526-120500-009
+      Severity       : HIGH
+      Detection Type : PRIVILEGE_ESCALATION
+      MITRE ATT&CK   : T1548 - Abuse Elevation Control Mechanism
+      Source IP      : localhost
+      Username       : root
+      Timestamp      : 2026-05-26T23:59:00
+      Threat Intel  : N/A
+      Analyst Notes  : User 'root' executed elevated command: [/bin/bash] at 23:59:00. ⚠ Sensitive command — verify authorization.
+      Recommended Actions:
+        - Review sudo/su logs for unauthorized privilege use.
+        - Verify sudoers configuration and least-privilege controls.
+        - Check for persistence or account misuse.
+
+
+  [ MED] MEDIUM (5 alert(s))
+  ------------------------------------------------------------------------
+  [1] Incident ID    : INC-20260526-120500-001
+      Severity       : MEDIUM
+      Detection Type : FAILED_LOGIN_BURST
+      MITRE ATT&CK   : N/A - Unknown
+      Source IP      : 185.72.33.10
+      Username       : <multiple>
+      Timestamp      : 2026-05-26T02:13:11
+      Threat Intel  : N/A
+      Analyst Notes  : 6 failed logins from 185.72.33.10 within 10 minutes.
+      Recommended Actions:
+        - Review alert context and validate user activity.
+
+  [2] Incident ID    : INC-20260526-120500-002
+      Severity       : MEDIUM
+      Detection Type : FAILED_LOGIN_BURST
+      MITRE ATT&CK   : N/A - Unknown
+      Source IP      : 92.118.160.22
+      Username       : <multiple>
+      Timestamp      : 2026-05-26T03:44:35
+      Threat Intel  : N/A
+      Analyst Notes  : 8 failed logins from 92.118.160.22 within 10 minutes.
+      Recommended Actions:
+        - Review alert context and validate user activity.
+
+  [3] Incident ID    : INC-20260526-120500-003
+      Severity       : MEDIUM
+      Detection Type : FAILED_LOGIN_BURST
+      MITRE ATT&CK   : N/A - Unknown
+      Source IP      : 45.33.32.156
+      Username       : <multiple>
+      Timestamp      : 2026-05-26T09:30:08
+      Threat Intel  : N/A
+      Analyst Notes  : 5 failed logins from 45.33.32.156 within 10 minutes.
+      Recommended Actions:
+        - Review alert context and validate user activity.
+
+  [4] Incident ID    : INC-20260526-120500-004
+      Severity       : MEDIUM
+      Detection Type : FAILED_LOGIN_BURST
+      MITRE ATT&CK   : N/A - Unknown
+      Source IP      : 103.25.59.88
+      Username       : <multiple>
+      Timestamp      : 2026-05-26T14:22:19
+      Threat Intel  : N/A
+      Analyst Notes  : 5 failed logins from 103.25.59.88 within 10 minutes.
+      Recommended Actions:
+        - Review alert context and validate user activity.
+
+  [5] Incident ID    : INC-20260526-120500-005
+      Severity       : MEDIUM
+      Detection Type : FAILED_LOGIN_BURST
+      MITRE ATT&CK   : N/A - Unknown
+      Source IP      : 77.88.55.66
+      Username       : <multiple>
+      Timestamp      : 2026-05-26T23:58:09
+      Threat Intel  : N/A
+      Analyst Notes  : 5 failed logins from 77.88.55.66 within 10 minutes.
+      Recommended Actions:
+        - Review alert context and validate user activity.
+
+-- RECOMMENDED ACTIONS (SUMMARY) ------------------------------------------
+  [CRITICAL] Escalate immediately to L2 analyst.
+  [CRITICAL] Isolate affected systems if active breach is suspected.
+  [ACTION]   Rotate credentials for all users authenticated from flagged IPs.
+  [ACTION]   Block offending IPs at firewall/fail2ban.
+  [ACTION]   Review sudo logs for unauthorized privilege use.
+  [ACTION]   Verify sudoers configuration and restrict where possible.
+  [ACTION]   Confirm off-hours sessions with account owners.
+  [ACTION]   Audit /etc/passwd for unauthorized accounts.
+
+==============================================================================
+  Report generated by siem-log-analyzer | github.com/YOUR_USERNAME/siem-log-analyzer
+==============================================================================
